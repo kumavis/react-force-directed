@@ -1,18 +1,25 @@
 module.exports = { buildGraph, mergeGraph }
 
 
-function mergeGraph (oldGraph, newGraph, middlePoint) {
+function mergeGraph (oldGraph, newGraph) {
+  const { width, height } = newGraph.container
   const graph = {}
   // create index for faster lookups during merge
   const graphIndex = createGraphIndex(oldGraph)
   // merge old graph for existing nodes + links
   graph.nodes = newGraph.nodes.map((node) => {
+    // add 10% random jitter around center
+    const middlePoint = {
+      x: width / 2 + (width * (0.2 * Math.random() - 0.1)),
+      y: height / 2 + (height * (0.2 * Math.random() - 0.1)),
+    }
     const oldNode = graphIndex.nodes[node.id]
     return Object.assign({}, middlePoint, oldNode, node)
   })
   graph.links = newGraph.links.map((link) => {
     return Object.assign({}, graphIndex.links[link.id], link)
   })
+  graph.container = newGraph.container
   return graph
 }
 
