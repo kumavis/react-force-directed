@@ -1,7 +1,7 @@
 {
   "name": "react-force-directed",
   "version": "1.0.0",
-  "description": "",
+  "description": "React components for drawing force directed graphs using `d3-force`. Gracefully handles graph being updated by new objects representing the same graph via a `mergeGraph` helper.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -31,5 +31,14 @@
         }
       ]
     ]
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumavis/react-force-directed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kumavis/react-force-directed/issues"
+  },
+  "homepage": "https://github.com/kumavis/react-force-directed#readme"
 }
