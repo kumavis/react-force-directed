@@ -4,7 +4,8 @@
   "description": "React components for drawing force directed graphs using `d3-force`. Gracefully handles graph being updated by new objects representing the same graph via a `mergeGraph` helper.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p dist && babel src/ -d dist/"
   },
   "author": "",
   "license": "ISC",
@@ -21,18 +22,12 @@
   },
   "browserify": {
     "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "@babel/preset-react",
-            "@babel/preset-env"
-          ]
-        }
-      ]
+      "babelify"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.4.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kumavis/react-force-directed.git"
