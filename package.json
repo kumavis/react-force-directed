@@ -1,6 +1,6 @@
 {
   "name": "react-force-directed",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "React components for drawing force directed graphs using `d3-force`. Gracefully handles graph being updated by new objects representing the same graph via a `mergeGraph` helper.",
   "main": "dist/index.js",
   "scripts": {
