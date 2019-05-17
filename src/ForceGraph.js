@@ -1,6 +1,7 @@
 const React = require('react')
-const { buildGraph, mergeGraph } = require('./build')
-const { setupSimulation, setupSimulationForces } = require('./simulation')
+const d3 = require('d3')
+const { mergeGraph } = require('./build')
+const { setupSimulationForces: defaultSetupSimulationForces, destroySimulation } = require('./simulation')
 const renderGraph = require('./normal')
 
 
@@ -15,10 +16,10 @@ class ForceGraph extends React.Component {
 
   componentDidMount () {
     // setup force simulation
-    this.graph = { nodes: [], links: [], container: {}, container: { height: 0, width: 0 } }
-    this.simulation = setupSimulation(this.graph)
+    this.simulation = d3.forceSimulation()
 
     // setup update graph on change
+    this.graph = { nodes: [], links: [], container: {}, container: { height: 0, width: 0 } }
     const { graphStore } = this.props
     graphStore.subscribe(this.updateGraph)
     this.updateGraph(graphStore.getState())
@@ -30,10 +31,9 @@ class ForceGraph extends React.Component {
   componentWillUnmount () {
     const { graphStore } = this.props
     graphStore.unsubscribe(this.updateGraph)
-    // this is how you remove a listener in d3-force
-    this.simulation.on('tick', null)
-    this.simulation.stop()
-
+    
+    // cleanup simulation and graph
+    destroySimulation(this.simulation)
     delete this.simulation
     delete this.graph
   }
@@ -49,6 +49,7 @@ class ForceGraph extends React.Component {
     this.graph = mergedGraph
 
     // reset simulation
+    const setupSimulationForces = this.props.setupSimulationForces || defaultSetupSimulationForces
     setupSimulationForces(this.simulation, mergedGraph)
   }
 

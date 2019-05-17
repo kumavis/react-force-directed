@@ -1,12 +1,14 @@
 const d3 = require('d3')
 const forceBoundry2 = require('./forceBoundry').default
 
-module.exports = { setupSimulation, setupSimulationForces }
+module.exports = { destroySimulation, setupSimulationForces }
 
-function setupSimulation(state) {
-  const simulation = d3.forceSimulation()
-  setupSimulationForces(simulation, state)
-  return simulation
+function destroySimulation (simulation) {
+  // stop iteration
+  simulation.stop()
+  // unsub events
+  simulation.on('tick', null)
+  simulation.on('end', null)
 }
 
 function setupSimulationForces (simulation, state) {
